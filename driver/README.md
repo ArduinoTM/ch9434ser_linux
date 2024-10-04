@@ -40,7 +40,7 @@ config SERIAL_CH9434
 	help
 	  This selects support for ch9434 serial ports.
 	
-3. Add the follow define into the $kernel_src\drivers\tty\serial\Makefile for compile the driver.
+3. Add the follow define into the "$kernel_src\drivers\tty\serial\Makefile" for compile the driver.
 obj-$(CONFIG_SERIAL_CH943X) += ch9434.o
 
 4. Run the make menuconfig and select the ch9434 serial support at the driver/tty/serial and save the config.
