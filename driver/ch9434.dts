@@ -1,0 +1,36 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2711"; // 树莓派5 使用的 BCM2711 SoC
+
+    fragment@0 {
+        target = <&spi0>; // 使用树莓派上的 SPI0
+        __overlay__ {
+            #address-cells = <1>; // 定义地址单元
+            #size-cells = <0>; // 定义大小单元
+
+            spidev@0 {
+                compatible = "ch943x_spi";
+                reg = <0>; // 使用 CS0 作为片选 (SPI0, Chip Select 0)
+                spi-max-frequency = <5000000>;
+                status = "okay"; // 启用设备
+                interrupt-parent = <&gpio>;
+                interrupts = <0 2>; // GPIO 0, 上升沿中断
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&gpio>;
+        __overlay__ {
+            // 将 GPIO 0 配置为中断输入
+            spi0_pins: spi0_pins {
+                brcm,pins = <0>; // GPIO 0
+                brcm,function = <0>; // 配置为输入
+                brcm,pull = <2>; // 配置为上拉
+            };
+        };
+    };
+};
+
