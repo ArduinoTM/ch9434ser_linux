@@ -201,6 +201,7 @@
 /* Misc definitions */
 #define CH943X_FIFO_SIZE (1536)
 #define CH943X_CMD_DELAY 3
+//#define USE_SYSFS_LINK
 
 struct ch943x_devtype {
 	char name[10];
@@ -1556,7 +1557,10 @@ static int ch943x_spi_probe(struct spi_device *spi)
 	}
 #endif
 
+
+#ifdef USE_SYSFS_LINK	
 	ch9434_create_sysfs(spi);
+#endif
 
 out:
 	return ret;
